@@ -5,8 +5,8 @@ set -e
 
 # Function to build the Docker image.
 init_docker() {
-    echo "Building Docker image for MoboFarm Simulation..."
-    docker build -t mobosim ./docker
+    echo "Building Docker image for MobiFarm Simulation..."
+    docker build -t mobisim ./docker
     echo "Docker image built successfully."
 }
 
@@ -30,18 +30,18 @@ stop_docker() {
 enter_docker() {
     echo "Entering Docker container..."
     # Enter the Docker container.
-    docker exec -it mobosim bash
+    docker exec -it mobisim bash
 }
 
 # Function to show the usage of the script.
 usage() {
     # Display in details the usage of the script.
-    echo "MoboFarm Simulation Docker Script"
+    echo "MobiFarm Simulation Docker Script"
     echo "Usage: $0 {init-docker|start-docker|stop-docker|enter-docker}"
-    echo "  init-docker: Build the Docker image for MoboFarm Simulation."
-    echo "  start-docker: Start the Docker container for MoboFarm Simulation."
-    echo "  stop-docker: Stop the Docker container for MoboFarm Simulation."
-    echo "  enter-docker: Enter the Docker container for MoboFarm Simulation."
+    echo "  init-docker: Build the Docker image for MobiFarm Simulation."
+    echo "  start-docker: Start the Docker container for MobiFarm Simulation."
+    echo "  stop-docker: Stop the Docker container for MobiFarm Simulation."
+    echo "  enter-docker: Enter the Docker container for MobiFarm Simulation."
     echo ""
 
     exit 1

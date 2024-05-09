@@ -1,12 +1,12 @@
 
-# MoboFarm Simulation
+# MobiFarm Simulation
 
-Welcome to the MoboFarm Simulation project repository. This platform uses Docker to encapsulate the development and simulation environment, leveraging ROS Kinetic and Gazebo 7 on Ubuntu, with support for Nvidia GPUs. MoboFarm Simulation is designed to automate tasks in precision agriculture, utilizing a robust simulation framework for development and testing.
+Welcome to the MobiFarm Simulation project repository. This platform uses Docker to encapsulate the development and simulation environment, leveraging ROS Kinetic and Gazebo 7 on Ubuntu, with support for Nvidia GPUs. MobiFarm Simulation is designed to automate tasks in precision agriculture, utilizing a robust simulation framework for development and testing.
 
 ## Project Structure
 
 ```
-mobofarm_simulation/
+mobifarm_simulation/
 │
 ├── docs/                     # Documentation files
 │   ├── setup.md
@@ -43,27 +43,27 @@ mobofarm_simulation/
 
 1. **Clone the repository:**
    ```
-   git clone https://github.com/anh0001/mobofarm_simulation.git
-   cd mobofarm_simulation
+   git clone https://github.com/anh0001/mobifarm_simulation.git
+   cd mobifarm_simulation
    ```
 
 2. **Build the Docker image:**
-   Navigate to the Docker directory inside the MoboFarm project and build the Docker image. This Dockerfile is configured for ROS Kinetic and Gazebo 7 with Nvidia GPU support.
+   Navigate to the Docker directory inside the MobiFarm project and build the Docker image. This Dockerfile is configured for ROS Kinetic and Gazebo 7 with Nvidia GPU support.
    ```
    cd docker
-   docker build -t mobofarm_simulation_image .
+   docker build -t mobifarm_simulation_image .
    ```
 
 3. **Run the Docker container:**
-   Use Docker Compose or a Docker run command to start the container. Ensure to mount the MoboFarm Simulation directory.
+   Use Docker Compose or a Docker run command to start the container. Ensure to mount the MobiFarm Simulation directory.
    ```
-   docker run -v $(pwd)/../:/root/mobofarm_simulation --gpus all -it mobofarm_simulation_image
+   docker run -v $(pwd)/../:/root/mobifarm_simulation --gpus all -it mobifarm_simulation_image
    ```
 
 4. **Inside the Docker container:**
    Compile the code:
    ```
-   cd /root/mobofarm_simulation
+   cd /root/mobifarm_simulation
    catkin_make
    source devel/setup.bash
    ```
@@ -72,12 +72,12 @@ mobofarm_simulation/
 
 1. **Launch the simulation inside the Docker environment:**
    ```
-   roslaunch mobofarm_simulation simulation.launch
+   roslaunch mobifarm_simulation simulation.launch
    ```
 
 2. **Run the control interface:**
    ```
-   rosrun mobofarm_simulation controller.py
+   rosrun mobifarm_simulation controller.py
    ```
 
 ## Contribution Guidelines
@@ -88,4 +88,4 @@ mobofarm_simulation/
 
 ## Conclusion
 
-The MoboFarm Simulation is designed for growth and collaboration. We encourage contributions from the robotics and agricultural communities to enhance and evolve this platform for advanced agricultural tasks. This setup using Docker ensures a consistent and controlled development environment for all contributors.
+The MobiFarm Simulation is designed for growth and collaboration. We encourage contributions from the robotics and agricultural communities to enhance and evolve this platform for advanced agricultural tasks. This setup using Docker ensures a consistent and controlled development environment for all contributors.
