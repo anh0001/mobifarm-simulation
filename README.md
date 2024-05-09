@@ -9,9 +9,9 @@ Welcome to the MobiFarm Simulation project repository. This platform uses Docker
 mobifarm_simulation/
 │
 ├── docs/                     # Documentation files
-│   ├── setup.md
-│   ├── usage.md
-│   └── contributing.md
+│   ├── setup.md              # Instructions for setting up the project
+│   ├── usage.md              # Instructions for using the project
+│   └── contributing.md       # Guidelines for contributing to the project
 │
 ├── src/                      # Source code
 │   ├── controllers/          # Robot control algorithms
@@ -20,21 +20,21 @@ mobifarm_simulation/
 │   └── utils/                # Utility scripts and modules
 │
 ├── tests/                    # Test scripts and simulation
-│   ├── integration_tests/
-│   └── unit_tests/
+│   ├── integration_tests/    # Integration tests
+│   └── unit_tests/           # Unit tests
 │
 ├── simulations/              # Gazebo simulation environments
-│   └── scenarios/
+│   └── scenarios/            # Different scenarios for simulation
 │
 ├── launch/                   # ROS launch files for deployment
 │
 ├── docker/                   # Docker files and setup
-│   ├── Dockerfile
-│   └── docker-compose.yml
+│   ├── Dockerfile            # Dockerfile for building the Docker image
+│   └── docker-compose.yml    # Docker Compose file for running the Docker container
 │
 ├── config/                   # Configuration files and parameters
-│   ├── robot_params.yaml
-│   └── simulation_params.yaml
+│   ├── robot_params.yaml     # Parameters for the robot
+│   └── simulation_params.yaml  # Parameters for the simulation
 │
 └── CMakeLists.txt            # Build script
 ```

@@ -33,15 +33,52 @@ enter_docker() {
     docker exec -it mobisim bash
 }
 
+# Function to build the project.
+build_project() {
+    echo "Checking if is running in the Docker container..."
+    # Check if the script is running in the Docker container.
+    if [ -f /.dockerenv ]; then
+        echo "Running in the Docker container."
+        echo "Building the project..."
+        # Build the project.
+        catkin_make
+        echo "Project built successfully."
+    else
+        echo "Not running in the Docker container."
+        echo "Please run the script in the Docker container."
+        exit 1
+    fi
+}
+
+# Function to clean the project.
+clean_project() {
+    echo "Checking if is running in the Docker container..."
+    # Check if the script is running in the Docker container.
+    if [ -f /.dockerenv ]; then
+        echo "Running in the Docker container."
+        echo "Cleaning the project..."
+        # Clean the project.
+        catkin_make clean
+        rm -rf build/ devel/
+        echo "Project cleaned successfully."
+    else
+        echo "Not running in the Docker container."
+        echo "Please run the script in the Docker container."
+        exit 1
+    fi
+}
+
 # Function to show the usage of the script.
 usage() {
     # Display in details the usage of the script.
     echo "MobiFarm Simulation Docker Script"
-    echo "Usage: $0 {init-docker|start-docker|stop-docker|enter-docker}"
+    echo "Usage: $0 {commands}"
     echo "  init-docker: Build the Docker image for MobiFarm Simulation."
     echo "  start-docker: Start the Docker container for MobiFarm Simulation."
     echo "  stop-docker: Stop the Docker container for MobiFarm Simulation."
     echo "  enter-docker: Enter the Docker container for MobiFarm Simulation."
+    echo "  build: Build the project in the Docker container."
+    echo "  clean: Clean the project in the Docker container."
     echo ""
 
     exit 1
@@ -60,6 +97,12 @@ case "$1" in
         ;;
     enter-docker)
         enter_docker
+        ;;
+    build)
+        build_project
+        ;;
+    clean)
+        clean_project
         ;;
     *)
         usage
