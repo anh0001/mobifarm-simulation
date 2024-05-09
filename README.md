@@ -25,6 +25,7 @@ mobifarm_simulation/
 │
 ├── simulations/              # Gazebo simulation environments
 │   └── scenarios/            # Different scenarios for simulation
+│   └── gazebo_models/        # Gazebo models to be linked to docker's gazebo
 │
 ├── launch/                   # ROS launch files for deployment
 │
@@ -35,8 +36,6 @@ mobifarm_simulation/
 ├── config/                   # Configuration files and parameters
 │   ├── robot_params.yaml     # Parameters for the robot
 │   └── simulation_params.yaml  # Parameters for the simulation
-│
-└── CMakeLists.txt            # Build script
 ```
 
 ## Installation Guide
@@ -50,34 +49,34 @@ mobifarm_simulation/
 2. **Build the Docker image:**
    Navigate to the Docker directory inside the MobiFarm project and build the Docker image. This Dockerfile is configured for ROS Kinetic and Gazebo 7 with Nvidia GPU support.
    ```
-   cd docker
-   docker build -t mobifarm_simulation_image .
+   ./mobifarm.sh init-docker
    ```
 
-3. **Run the Docker container:**
+3. **Run or enter the Docker container:**
    Use Docker Compose or a Docker run command to start the container. Ensure to mount the MobiFarm Simulation directory.
    ```
-   docker run -v $(pwd)/../:/root/mobifarm_simulation --gpus all -it mobifarm_simulation_image
+   ./mobifarm.sh start-docker
    ```
 
 4. **Inside the Docker container:**
    Compile the code:
    ```
-   cd /root/mobifarm_simulation
-   catkin_make
-   source devel/setup.bash
+   ./mobifarm.sh build
    ```
 
 ## Usage Instructions
 
 1. **Launch the simulation inside the Docker environment:**
    ```
-   roslaunch mobifarm_simulation simulation.launch
+   roslaunch mobifarm_gazebo mobifarm_world.launch
+   roslaunch mobifarm_gazebo load_robot.launch
    ```
 
 2. **Run the control interface:**
    ```
-   rosrun mobifarm_simulation controller.py
+   source devel/setup.bash
+   $ cd src/controllers/mobifarm_control/scripts
+   $ python keyboard_controller.py
    ```
 
 ## Contribution Guidelines
@@ -89,3 +88,7 @@ mobifarm_simulation/
 ## Conclusion
 
 The MobiFarm Simulation is designed for growth and collaboration. We encourage contributions from the robotics and agricultural communities to enhance and evolve this platform for advanced agricultural tasks. This setup using Docker ensures a consistent and controlled development environment for all contributors.
+
+## References
+
+1. https://github.com/aioz-ai/IROS20_NMFNet
