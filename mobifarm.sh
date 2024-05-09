@@ -87,7 +87,7 @@ run_test_display_world() {
         echo "Running test..."
         # Run the test.
         source devel/setup.bash
-        rosrun gazebo_ros gazebo src/mobifarm_simulation/worlds/world_test.world
+        rostest mobifarm_gazebo test_world.launch
     else
         echo "Not running in the Docker container."
         echo "Please run the script in the Docker container."

@@ -1,0 +1,14 @@
+<launch>
+    <!-- Load the Gazebo ROS package -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find mobifarm_gazebo)/worlds/world_test.world"/>
+        <!-- Unpause the physics so the world is running -->
+        <arg name="paused" value="false"/>
+        <!-- Set the use_sim_time ROS parameter to true -->
+        <arg name="use_sim_time" value="true"/>
+        <!-- Set GUI to true if you want to visually inspect the test -->
+        <arg name="gui" value="true"/>
+        <!-- Headless mode can be enabled for automated testing environments -->
+        <!-- <arg name="gui" value="false"/> -->
+    </include>
+</launch>
