@@ -12,10 +12,16 @@ init_docker() {
 
 # Function to start the Docker container using docker-compose.
 start_docker() {
-    echo "Starting Docker container..."
-    # Start docker-compose.yml in the ./docker directory.
-    docker-compose -f ./docker/docker-compose.yml up -d
-    echo "Docker container started successfully."
+    echo "Checking if Docker container is already running..."
+    # Check if the Docker container is already running.
+    if [ "$(docker ps -q -f name=mobisim)" ]; then
+        enter_docker
+    else
+        echo "Starting Docker container..."
+        # Start docker-compose.yml in the ./docker directory.
+        docker-compose -f ./docker/docker-compose.yml up -d
+        echo "Docker container started successfully."
+    fi
 }
 
 # Function to stop the Docker container.
@@ -57,10 +63,50 @@ clean_project() {
     if [ -f /.dockerenv ]; then
         echo "Running in the Docker container."
         echo "Cleaning the project..."
+
         # Clean the project.
         catkin_make clean
         rm -rf build/ devel/
+        # Clear the ROS log directory
+        rm -rf ~/.ros/log/*
+
         echo "Project cleaned successfully."
+    else
+        echo "Not running in the Docker container."
+        echo "Please run the script in the Docker container."
+        exit 1
+    fi
+}
+
+# Function to run test displaying a world in Gazebo
+run_test_display_world() {
+    echo "Checking if is running in the Docker container..."
+    # Check if the script is running in the Docker container.
+    if [ -f /.dockerenv ]; then
+        echo "Running in the Docker container."
+        echo "Running test..."
+        # Run the test.
+        source devel/setup.bash
+        rosrun gazebo_ros gazebo src/mobifarm_simulation/worlds/world_test.world
+    else
+        echo "Not running in the Docker container."
+        echo "Please run the script in the Docker container."
+        exit 1
+    fi
+}
+
+# Function to show the latest ros log.
+show_latest_ros_log() {
+    echo "Checking if is running in the Docker container..."
+    # Check if the script is running in the Docker container.
+    if [ -f /.dockerenv ]; then
+        echo "Running in the Docker container."
+        echo "Showing the latest ROS log..."
+        # Find the latest file in the ROS log directory
+        latest_file=$(ls -t ~/.ros/log/ | head -n1)
+
+        # View the file using less
+        less ~/.ros/log/"$latest_file"
     else
         echo "Not running in the Docker container."
         echo "Please run the script in the Docker container."
@@ -79,6 +125,8 @@ usage() {
     echo "  enter-docker: Enter the Docker container for MobiFarm Simulation."
     echo "  build: Build the project in the Docker container."
     echo "  clean: Clean the project in the Docker container."
+    echo "  roslog: Show the latest ROS log in the Docker container."
+    echo "  test-display-world: Run test displaying a world in Gazebo."
     echo ""
 
     exit 1
@@ -103,6 +151,12 @@ case "$1" in
         ;;
     clean)
         clean_project
+        ;;
+    roslog)
+        show_latest_ros_log
+        ;;
+    test-display-world)
+        run_test_display_world
         ;;
     *)
         usage
