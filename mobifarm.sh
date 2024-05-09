@@ -14,7 +14,7 @@ init_docker() {
 start_docker() {
     echo "Checking if Docker container is already running..."
     # Check if the Docker container is already running.
-    if [ "$(docker ps -q -f name=mobisim)" ]; then
+    if [ -f /.dockerenv ]; then
         enter_docker
     else
         echo "Starting Docker container..."
@@ -35,12 +35,14 @@ stop_docker() {
 # Function to enter the Docker container.
 enter_docker() {
     echo "Checking if Docker container is already running..."
-    # Check if the Docker container is already running.
-    if [ "$(docker ps -q -f name=mobisim)" ]; then
-        echo "Entering Docker container..."
-        # Enter the Docker container.
-        docker exec -it mobisim bash
+    # Make sure it is not in a container.
+    if [ -f /.dockerenv ]; then
+        echo "Already in Docker container."
+        exit 1
     fi
+
+    # Enter the Docker container.
+    docker exec -it mobisim bash
 }
 
 # Function to build the project.
