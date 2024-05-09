@@ -34,9 +34,13 @@ stop_docker() {
 
 # Function to enter the Docker container.
 enter_docker() {
-    echo "Entering Docker container..."
-    # Enter the Docker container.
-    docker exec -it mobisim bash
+    echo "Checking if Docker container is already running..."
+    # Check if the Docker container is already running.
+    if [ "$(docker ps -q -f name=mobisim)" ]; then
+        echo "Entering Docker container..."
+        # Enter the Docker container.
+        docker exec -it mobisim bash
+    fi
 }
 
 # Function to build the project.
