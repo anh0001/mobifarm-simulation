@@ -68,6 +68,7 @@ mobifarm_simulation/
 
 1. **Launch the simulation inside the Docker environment:**
    ```
+   source devel/setup.bash
    roslaunch mobifarm_gazebo mobifarm_world.launch
    roslaunch mobifarm_gazebo load_robot.launch
    ```

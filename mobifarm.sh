@@ -13,8 +13,8 @@ init_docker() {
 # Function to start the Docker container using docker-compose.
 start_docker() {
     echo "Checking if Docker container is already running..."
-    # Check if the Docker container is already running.
-    if [ -f /.dockerenv ]; then
+    # Check if the Docker container name mobisim has been created.
+    if [ "$(docker ps -q -f name=mobisim)" ]; then
         enter_docker
     else
         echo "Starting Docker container..."
@@ -109,10 +109,41 @@ show_latest_ros_log() {
         echo "Running in the Docker container."
         echo "Showing the latest ROS log..."
         # Find the latest file in the ROS log directory
-        latest_file=$(ls -t ~/.ros/log/ | head -n1)
+        latest_file=$(find ~/.ros/log/ -type f -printf "%T@ %p\n" | sort -n | tail -1 | cut -f2- -d" ")
+
+        # Check if ii is valid log
+        if [ -z "$latest_file" ]; then
+            echo "No ROS log found."
+            exit 1
+        fi
 
         # View the file using less
-        less ~/.ros/log/"$latest_file"
+        less "$latest_file"
+    else
+        echo "Not running in the Docker container."
+        echo "Please run the script in the Docker container."
+        exit 1
+    fi
+}
+
+# Function to show the katest gazebo log.
+show_latest_gazebo_log() {
+    echo "Checking if is running in the Docker container..."
+    # Check if the script is running in the Docker container.
+    if [ -f /.dockerenv ]; then
+        echo "Running in the Docker container."
+        echo "Showing the latest Gazebo log..."
+        # Find the latest file in the Gazebo log directory
+        latest_file=$(find ~/.gazebo/log/ -type f -printf "%T@ %p\n" | sort -n | tail -1 | cut -f2- -d" ")
+
+        # Check if ii is valid log
+        if [ -z "$latest_file" ]; then
+            echo "No Gazebo log found."
+            exit 1
+        fi 
+
+        # View the file using less
+        less "$latest_file"
     else
         echo "Not running in the Docker container."
         echo "Please run the script in the Docker container."
@@ -132,6 +163,7 @@ usage() {
     echo "  build: Build the project in the Docker container."
     echo "  clean: Clean the project in the Docker container."
     echo "  roslog: Show the latest ROS log in the Docker container."
+    echo "  gazebo-log: Show the latest Gazebo log in the Docker container."
     echo "  test-display-world: Run test displaying a world in Gazebo."
     echo ""
 
@@ -160,6 +192,9 @@ case "$1" in
         ;;
     roslog)
         show_latest_ros_log
+        ;;
+    gazebolog)
+        show_latest_gazebo_log
         ;;
     test-display-world)
         run_test_display_world
