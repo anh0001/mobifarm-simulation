@@ -37,12 +37,11 @@ class LidarProcessingNode:
         angle_increment = data.angle_increment
         grid = np.zeros((self.grid_size, self.grid_size))
 
-        # Check if is ranges is empty
-        if len(ranges) == 0:
-            print("empty")
-
         # Convert polar coordinates (angle, distance) to Cartesian coordinates (x, y)
         for r in ranges:
+            if np.isinf(r):
+                angle += angle_increment
+                continue
             x = r * np.cos(angle)
             y = r * np.sin(angle)
             grid_x = int((x / self.resolution) + self.grid_size/2)

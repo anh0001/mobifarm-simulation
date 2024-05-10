@@ -124,21 +124,16 @@
                     </vertical> -->
 
                     <horizontal>
-                    <samples>0</samples>
-                    <!-- <samples>720</samples> -->
+                    <samples>360</samples>
                     <resolution>1.0</resolution>
-                    <!-- <min_angle>-0.9916</min_angle>
-                    <max_angle>0.9495</max_angle> -->
                     <min_angle>1.57</min_angle>
                     <max_angle>-1.57</max_angle>
-                    <!-- <min_angle>0</min_angle>
-                    <max_angle>0</max_angle> -->
                     </horizontal>
                 
                 </scan>
                 <range>
                     <min>0.1</min>
-                    <max>25.0</max>
+                    <max>16.0</max>
                     <resolution>0.01</resolution>
                 </range>
                 <noise>
