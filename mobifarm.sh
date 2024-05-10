@@ -12,7 +12,7 @@ init_docker() {
 
 # Function to start the Docker container using docker-compose.
 start_docker() {
-    echo "Checking if Docker container is already running..."
+    echo "Checking if the Docker container name mobisim has been created..."
     # Check if the Docker container name mobisim has been created.
     if [ "$(docker ps -q -f name=mobisim)" ]; then
         enter_docker
