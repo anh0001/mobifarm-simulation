@@ -66,6 +66,9 @@ mobifarm_simulation/
 
 ## Usage Instructions
 
+1. **Load your gazebo models in the simulations/gazebo_models folder**
+   Gazebo models can downloaded as in the reference.
+
 1. **Launch the simulation inside the Docker environment:**
    ```
    source devel/setup.bash
@@ -73,11 +76,16 @@ mobifarm_simulation/
    roslaunch mobifarm_gazebo load_robot.launch
    ```
 
-2. **Run the control interface:**
+1. **Run the control interface:**
    ```
    source devel/setup.bash
    $ cd src/controllers/mobifarm_control/scripts
    $ python keyboard_controller.py
+   ```
+
+1. **Load a world (optional):**
+   ```
+   $ rosrun gazebo_ros gazebo src/mobifarm_gazebo/world/mobifarm.world
    ```
 
 ## Contribution Guidelines
@@ -92,4 +100,4 @@ The MobiFarm Simulation is designed for growth and collaboration. We encourage c
 
 ## References
 
-1. https://github.com/aioz-ai/IROS20_NMFNet
+1. Gazebo models can be downloaded from https://github.com/aioz-ai/IROS20_NMFNet
